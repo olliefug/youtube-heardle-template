@@ -18,7 +18,7 @@ export function Header({ openInfoPopUp }: Props) {
           height={30}
         />
 
-        <Styled.Logo>James Marriott Heardle</Styled.Logo>
+        <Styled.Logo>James Marriott Heardle Unlimited</Styled.Logo>
         <a href="#"></a>
       </Styled.Content>
     </Styled.Container>
