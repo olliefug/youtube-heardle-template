@@ -36,18 +36,17 @@ React.useEffect(() => {
   setDidGuess(false);
   setSelectedSong(undefined);
 
-  // Optional: reset stats entirely so no old data lingers
+  // Optional: clear old stats
   localStorage.removeItem("stats");
-}, [todaysSolution]);  // re-run when the (now random) song changes
+}, [todaysSolution]);
 
-  React.useEffect(() => {
-    if (Array.isArray(stats)) {
-      stats[stats.length - 1].currentTry = currentTry;
-      stats[stats.length - 1].didGuess = didGuess;
-      stats[stats.length - 1].guesses = guesses;
-    }
-  }),
-    [guesses, currentTry, didGuess];
+React.useEffect(() => {
+  if (Array.isArray(stats)) {
+    stats[stats.length - 1].currentTry = currentTry;
+    stats[stats.length - 1].didGuess = didGuess;
+    stats[stats.length - 1].guesses = guesses;
+  }
+}, [guesses, currentTry, didGuess])
 
   React.useEffect(() => {
     localStorage.setItem("stats", JSON.stringify(stats));
