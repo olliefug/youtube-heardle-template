@@ -30,27 +30,27 @@ function App() {
   let stats = JSON.parse(localStorage.getItem("stats") || "{}");
 
 React.useEffect(() => {
-  // Always start a fresh game on load (unlimited mode)
-  setGuesses(Array.from({ length: 5 }).fill(initialGuess));
-  setCurrentTry(0);
-  setDidGuess(false);
-  setSelectedSong(undefined);
-
-  // Clear old daily stats to avoid any lockout
-  localStorage.removeItem("stats");
-}, [todaysSolution]);
+  if (Array.isArray(stats)) {
+    // ... all the visitedToday stuff ...
+  } else {
+    // initialize stats ...
+  }
+}, []);
 
 React.useEffect(() => {
   if (Array.isArray(stats)) {
     stats[stats.length - 1].currentTry = currentTry;
     stats[stats.length - 1].didGuess = didGuess;
     stats[stats.length - 1].guesses = guesses;
+
+    // Add this for unlimited: always reset on load
+    setGuesses(Array.from({ length: 5 }).fill(initialGuess));
+    setCurrentTry(0);
+    setDidGuess(false);
+    setSelectedSong(undefined);
+    localStorage.removeItem("stats");  // Clears old daily data
   }
 }, [guesses, currentTry, didGuess]);
-
-React.useEffect(() => {
-  localStorage.setItem("stats", JSON.stringify(stats));
-}, [stats]);
 
   const [isInfoPopUpOpen, setIsInfoPopUpOpen] =
     React.useState<boolean>(firstRun);
