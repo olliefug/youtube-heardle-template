@@ -29,34 +29,16 @@ function App() {
   const firstRun = localStorage.getItem("firstRun") === null;
   let stats = JSON.parse(localStorage.getItem("stats") || "{}");
 
-  React.useEffect(() => {
-    if (Array.isArray(stats)) {
-      const visitedToday = _.isEqual(
-        todaysSolution,
-        stats[stats.length - 1].solution
-      );
+React.useEffect(() => {
+  // Always start a fresh game on load (unlimited mode)
+  setGuesses(Array.from({ length: 5 }).fill(initialGuess));
+  setCurrentTry(0);
+  setDidGuess(false);
+  setSelectedSong(undefined);
 
-      if (!visitedToday) {
-        stats.push({
-          solution: todaysSolution,
-          currentTry: 0,
-          didGuess: 0,
-        });
-      } else {
-        const { currentTry, guesses, didGuess } = stats[stats.length - 1];
-        setCurrentTry(currentTry);
-        setGuesses(guesses);
-        setDidGuess(didGuess);
-      }
-    } else {
-      // initialize stats
-      // useEffect below does rest
-      stats = [];
-      stats.push({
-        solution: todaysSolution,
-      });
-    }
-  }, []);
+  // Optional: reset stats entirely so no old data lingers
+  localStorage.removeItem("stats");
+}, [todaysSolution]);  // re-run when the (now random) song changes
 
   React.useEffect(() => {
     if (Array.isArray(stats)) {
