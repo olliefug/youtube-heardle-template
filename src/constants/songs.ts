@@ -16,7 +16,12 @@ export const songs = [
   },
   {
     artist: "James Marriott",
-    name: "New Face",
+    name: "Calling",
     youtubeId: "arktWVQkQws",
+  },
+  {
+    artist: "James Marriott",
+    name: "Wake Up!",
+    youtubeId: "sVHr0bHH3LE",
   },
 ];
