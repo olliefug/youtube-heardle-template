@@ -36,7 +36,7 @@ React.useEffect(() => {
   setDidGuess(false);
   setSelectedSong(undefined);
 
-  // Optional: clear old stats
+  // Clear old daily stats to avoid any lockout
   localStorage.removeItem("stats");
 }, [todaysSolution]);
 
@@ -46,11 +46,11 @@ React.useEffect(() => {
     stats[stats.length - 1].didGuess = didGuess;
     stats[stats.length - 1].guesses = guesses;
   }
-}, [guesses, currentTry, didGuess])
+}, [guesses, currentTry, didGuess]);
 
-  React.useEffect(() => {
-    localStorage.setItem("stats", JSON.stringify(stats));
-  }, [stats]);
+React.useEffect(() => {
+  localStorage.setItem("stats", JSON.stringify(stats));
+}, [stats]);
 
   const [isInfoPopUpOpen, setIsInfoPopUpOpen] =
     React.useState<boolean>(firstRun);
